@@ -1,19 +1,34 @@
 const express = require('express');
 const app = express();
 const path = require('path');
+const wastedRouter = require('./routes/wastedRouter');
+const tastedRouter = require('./routes/tastedRouter');
+const fridgeRouter = require('./routes/fridgeRouter');
+const userController = require('./controllers/userController');
 
 app.use(express.json());
 
 app.use('/dist', express.static(path.join(__dirname, '../dist')));
 
 app.get('/', (req,res)=>{
-  return res.status(200).sendFile(path.join(__dirname, '../dist/index.html'))
-})
+  return res.status(200).sendFile(path.join(__dirname, '../dist/index.html'));
+});
 
-app.get('/wasted', (req,res)=>{
-  console.log('u got wasted')
-  return res.json({wasted: 'son of a gun'})
-})
+app.get('/get',
+  userController.getItems,
+  (req, res) => res.status(200).json(res.locals.users)
+);
+
+// app.post('/post',
+//   userController.addUser,
+//   (req,res) => res.status(200).json(res.locals.users)
+// );
+
+app.use('/wasted', wastedRouter);
+
+app.use('/tasted', tastedRouter);
+
+app.use('/fridge', fridgeRouter);
 
 app.use('*', (req, res) => res.sendStatus(404));
 
