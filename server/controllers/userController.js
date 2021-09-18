@@ -20,9 +20,9 @@ userController.deleteItem = (req, res, next) => {
 
 userController.editItems = (req, res, next) => {
   
-  const username = {username: req.body.username};
-  const editItems = {}
-  User.findOneAndUpdate(username, {$set: req.body}, {new:true})
+  // const username = {username: req.body.username};
+  // const editItems = {}
+  // User.findOneAndUpdate(username, {$set: req.body}, {new:true})
 }
 
 // userController.addUser = (req, res, next) => {
