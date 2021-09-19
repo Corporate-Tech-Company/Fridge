@@ -15,22 +15,70 @@ mongoose.connect(MONGO_URI, {
   // }
   const Schema = mongoose.Schema;
 
+  // const usersSchema = new Schema({
+  //   username: {
+  //     type: String, required: true, unique:true
+  //   },
+  //   nickname: String,
+  //   wasted: {
+  //     type:Array, required: true
+  //   },
+  //   tasted: {
+  //     type:Array, required: true
+  //   },
+  //   fridge: {
+  //     type:Array, required: true
+  //   },
+  // })
+
+
+
   const usersSchema = new Schema({
     username: {
-      type: String, required: true, unique:true
+      type: String, required: true, unique: true
     },
-    nickname: String,
-    wasted: {
-      type:Array, required: true
-    },
-    tasted: {
-      type:Array, required: true
-    },
-    fridge: {
-      type:Array, required: true
-    },
+    wasted: [
+      {
+        name: String,
+        quantity: String,
+        price: Number,
+        datePurchased: String,
+        useByDate: String
+      }
+  ],
+    tasted: [
+      {
+        name: String,
+        quantity: String,
+        price: Number,
+        datePurchased: String,
+        useByDate: String
+      }
+    ],
+    fridge: [
+      {
+        name: String,
+        quantity: String,
+        price: Number,
+        datePurchased: String,
+        useByDate: String
+      }
+    ]
   })
+
+  // const foodSchema = new Schema({
+  //   name: String,
+  //   quantity: String,
+  //   price: Number,
+  //   datePurchased: String,
+  //   useByDate: String
+  // })
+
+  // wasted: [ Schema.Types.Mixed ]
+
+  // wasted: [Food]
   
   const Users = mongoose.model('users', usersSchema);
+  //const Food = mongoose.model('Food', foodSchema)
 
   module.exports = Users;

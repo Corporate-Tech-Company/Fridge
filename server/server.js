@@ -10,25 +10,42 @@ app.use(express.json());
 
 app.use('/dist', express.static(path.join(__dirname, '../dist')));
 
-app.get('/', (req,res)=>{
+app.get('/', (req,res)=>{ 
   return res.status(200).sendFile(path.join(__dirname, '../dist/index.html'));
 });
+
+app.get('/wasted', (req,res)=> {
+  return res.status(200).sendFile(path.join(__dirname, '../dist/index.html'));
+});
+
+app.get('/tasted', (req,res)=> {
+  return res.status(200).sendFile(path.join(__dirname, '../dist/index.html'));
+});
+
+app.get('/fridge', (req,res)=> {
+  return res.status(200).sendFile(path.join(__dirname, '../dist/index.html'));
+});
+
+app.get('/api', (req, res) => {
+  console.log('Hello from /api')
+  return res.status(200).send('THE BURGERS ARE READY');
+})
 
 app.get('/get',
   userController.getItems,
   (req, res) => res.status(200).json(res.locals.users)
 );
 
-// app.post('/post',
-//   userController.addUser,
-//   (req,res) => res.status(200).json(res.locals.users)
-// );
+app.post('/post',
+  userController.addUser,
+  (req,res) => res.status(200).json(res.locals.users)
+);
 
-app.use('/wasted', wastedRouter);
+app.use('/api/wasted', wastedRouter);
 
-app.use('/tasted', tastedRouter);
+app.use('/api/tasted', tastedRouter);
 
-app.use('/fridge', fridgeRouter);
+app.use('/api/fridge', fridgeRouter);
 
 app.use('*', (req, res) => res.sendStatus(404));
 
