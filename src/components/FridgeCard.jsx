@@ -1,7 +1,7 @@
 import React from 'react';
 import './fridgeCard.scss';
 
-function FridgeCard({food}) {
+function FridgeCard({food, handleDeleteFridge}) {
   
   return (
     <div className="fridge-card">
@@ -10,6 +10,7 @@ function FridgeCard({food}) {
       <div>{food.price}</div>
       <div>{food.datePurchased}</div>
       <div>{food.useByDate}</div>
+      <button onClick={() => handleDeleteFridge(food._id)}>Delete</button>
     </div>
   )
 }
