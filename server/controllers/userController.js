@@ -25,16 +25,16 @@ userController.editItems = (req, res, next) => {
   // User.findOneAndUpdate(username, {$set: req.body}, {new:true})
 }
 
-// userController.addUser = (req, res, next) => {
-//   console.log(req.body)
-//   User.create(req.body)
-//   .then(users => {
-//     res.locals.users = users;
-//     console.log(users)
-//     next();
-//   })
-//   .catch(err => next(err));
-// }
+userController.addUser = (req, res, next) => {
+  console.log(req.body)
+  User.create(req.body)
+  .then(users => {
+    res.locals.users = users;
+    console.log(users)
+    next();
+  })
+  .catch(err => next(err));
+}
 
 
 module.exports = userController;
