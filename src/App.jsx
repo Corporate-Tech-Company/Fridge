@@ -29,6 +29,12 @@ function App() {
     const newFridge = [...fridge, newFood];
     setFridge(newFridge);
   }
+
+  const handleDeleteFridge = (foodId) => {
+    const newFridge = fridge.filter(food => food._id !== foodId);
+    // call to DB
+    setFridge(newFridge);
+  }
   
   const toggleAddFoodModalDisplay = () => {
     setAddFoodModalDisplay(!addFoodModalDisplay);
@@ -75,6 +81,7 @@ function App() {
           <Fridge 
             fridge={fridge}
             toggleAddFoodModalDisplay={toggleAddFoodModalDisplay}
+            handleDeleteFridge={handleDeleteFridge}
           />
 
         </Route>

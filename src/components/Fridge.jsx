@@ -1,13 +1,14 @@
 import React from 'react'
 import FridgeCard from './FridgeCard.jsx'
 
-function Fridge({ fridge, toggleAddFoodModalDisplay }) {
+function Fridge({ fridge, toggleAddFoodModalDisplay, handleDeleteFridge }) {
 
 
   const fridgeCards = fridge.map(food => {
     return (
       <FridgeCard 
         food={food}
+        handleDeleteFridge={handleDeleteFridge}
       />
     )
   });
