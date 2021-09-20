@@ -1,12 +1,14 @@
 import React from 'react';
 import './fridgeCard.scss';
 
-function FridgeCard({ food, handleDeleteFridge, moveToTasted, moveToWasted, getDifferenceInDays }) {
-
+function FridgeCard({
+	food,
+	handleDeleteFridge,
+	moveToTasted,
+	moveToWasted,
+	getDifferenceInDays,
+}) {
 	const differenceInDays = getDifferenceInDays(food.useByDate);
-
-
-
 
 	return (
 		<div className='card'>
@@ -34,9 +36,11 @@ function FridgeCard({ food, handleDeleteFridge, moveToTasted, moveToWasted, getD
 				<div>Use By Date: </div>
 				<div className='underlineInfo'>{food.useByDate}</div>
 			</div>
-      <div>
-        {differenceInDays < 0 ? `You wasted it!` : `Expires in ${differenceInDays} days`}
-      </div>
+			<div className='cardInfo' id='expirationInfo'>
+				{differenceInDays < 0
+					? `Use by date passed! Eat this quick!`
+					: `Expires in ${differenceInDays} days`}
+			</div>
 			<div className='moveToButtons'>
 				<button id='tastedButton' onClick={() => moveToTasted(food._id)}>
 					Tasted
