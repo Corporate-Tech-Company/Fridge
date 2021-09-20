@@ -6,6 +6,7 @@ import Wasted from './components/Wasted.jsx';
 import Tasted from './components/Tasted.jsx';
 import { dummyData } from './dummyData';
 import AddFoodModal from './components/AddFoodModal.jsx';
+import differenceInDays from 'date-fns/differenceInDays';
 
 function App() {
 	const [user, setUser] = useState('');
@@ -214,7 +215,8 @@ function App() {
 
 	//function to calculate percentage wasted
 	const calcPercentageWasted = (wasted, tasted, fridge) => {
-		return wasted.length / (wasted.length + tasted.length + fridge.length);
+		let result = wasted.length / (wasted.length + tasted.length + fridge.length);
+		return result.toFixed(2);
 	};
 
 	//componenDidMount
@@ -222,6 +224,20 @@ function App() {
 	//componenetDidUpdate
 	// run this function every time there's an update to the component
 	//componentWillUnmount
+
+	const getDifferenceInDays = (useBy) => {
+		const [useByMonth, useByDay, useByYear] = useBy.split('/');
+
+		const zeroIndexUseByMonth = parseInt(useByMonth) - 1;
+
+		const useByDate = new Date(useByYear, zeroIndexUseByMonth, useByDay);
+
+		const today = new Date();
+
+		const difference = differenceInDays(useByDate, today);
+		return difference;
+		
+	}
 
 	useEffect(() => {
 		// fetch('/wasted')
@@ -278,6 +294,7 @@ function App() {
 						handleDeleteFridge={handleDeleteFridge}
 						moveToTasted={moveToTasted}
 						moveToWasted={moveToWasted}
+						getDifferenceInDays={getDifferenceInDays}
 					/>
 				</Route>
 				<Route exact path='/wasted'>
@@ -286,6 +303,7 @@ function App() {
 						wasted={wasted}
 						moveWastedToFridge={moveWastedToFridge}
 						handleDeleteWasted={handleDeleteWasted}
+						getDifferenceInDays={getDifferenceInDays}
 					/>
 				</Route>
 				<Route exact path='/tasted'>
@@ -293,7 +311,8 @@ function App() {
 					<Tasted
 						tasted={tasted}
 						moveTastedToFridge={moveTastedToFridge}
-						handleDeleteTasted={handleDeleteTasted}
+						handleDeleteTasted={handleDeleteTasted}						
+						getDifferenceInDays={getDifferenceInDays}
 					/>
 				</Route>
 			</Switch>

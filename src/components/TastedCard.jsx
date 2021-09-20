@@ -1,7 +1,10 @@
 import React from 'react';
 import './fridgeCard.scss';
 
-function TastedCard({ food, moveTastedToFridge }) {
+function TastedCard({ food, moveTastedToFridge, getDifferenceInDays }) {
+
+	const differenceInDays = getDifferenceInDays(food.useByDate);
+
 	return (
 		<div className='fridge-card'>
 			<div>{food.name}</div>
