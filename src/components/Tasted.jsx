@@ -1,22 +1,12 @@
-import React from 'react'
-import TastedCard from './TastedCard.jsx'
+import React from 'react';
+import TastedCard from './TastedCard.jsx';
 
-function Tasted({ tasted }) {
+function Tasted({ tasted, moveTastedToFridge }) {
+	const tastedCards = tasted.map((food) => {
+		return <TastedCard food={food} moveTastedToFridge={moveTastedToFridge} />;
+	});
 
-    const tastedCards = tasted.map(food => {
-        return (
-            <TastedCard 
-                food = {food}
-            />
-        )
-    })
-
-    return (
-        <div>
-          {tastedCards}
-        </div>
-      )
-  
+	return <div>{tastedCards}</div>;
 }
 
-export default Tasted
+export default Tasted;
