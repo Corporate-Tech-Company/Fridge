@@ -1,4 +1,112 @@
-.fridge-card {
-  outline: 1px solid black;
-  width: 10rem;
+$bordercolor: rgb(174, 174, 174);
+$fontcolor: rgb(58, 58, 58);
+$wastedColor: rgb(211, 138, 138);
+$tastedColor: rgb(104, 180, 104);
+$headerColor: #ffa67a;
+
+.centerCardsContainer {
+	display: flex;
+	justify-content: center;
+}
+.cardsContainer {
+	display: grid;
+	grid-template-columns: 1fr 1fr 1fr;
+	color: $fontcolor;
+	justify-content: center;
+	grid-gap: 30px;
+	font-family: Arial, Helvetica, sans-serif;
+}
+
+.card {
+	display: flex;
+	flex-direction: column;
+	width: 25em;
+	background: linear-gradient(145deg, #ffffff, #e6e6e6);
+	box-shadow: 15px 15px 30px #bebebe, -15px -15px 30px #ffffff;
+	border-radius: 5px;
+	border: 1px solid rgb(227, 227, 227);
+	padding: 15px;
+}
+
+.cardHeader {
+	display: flex;
+	justify-content: space-between;
+	border-bottom: 1px solid $bordercolor;
+	// background-color: $headerColor;
+}
+
+.cardHeader h1 {
+	font-size: 1.8em;
+	margin: 10px;
+	font-style: italic;
+	color: rgb(28, 28, 28);
+}
+
+#deleteButton {
+	height: 30px;
+	width: 30px;
+	border: none;
+	background: none;
+}
+
+#deleteButton:after {
+	content: 'X';
+	font-size: 1.2em;
+	color: rgb(126, 126, 126);
+}
+
+#deleteButton:hover {
+	color: rgb(171, 171, 171);
+	transition: 0.1s;
+}
+
+.cardInfo {
+	display: flex;
+	width: 25rem;
+	// border: 1px solid blue;
+	justify-content: space-between;
+	margin-top: 10px;
+	margin-left: 10px;
+	font-size: 17px;
+}
+
+.underlineInfo {
+	border-bottom: 1px solid $bordercolor;
+	width: 50%;
+	text-align: center;
+	margin-right: 10px;
+}
+
+.moveToButtons {
+	margin-left: 10px;
+	margin-top: 10px;
+}
+
+#tastedButton {
+	border: 1px solid $tastedColor;
+	color: $tastedColor;
+	border-radius: 5px;
+	padding: 5px;
+	margin-right: 8px;
+	font-size: 12px;
+}
+
+#tastedButton:hover {
+	color: white;
+	background-color: $tastedColor;
+	transition: 0.2s ease-in;
+}
+
+#wastedButton {
+	border: 1px solid $wastedColor;
+	color: $wastedColor;
+	border-radius: 5px;
+	padding: 5px;
+	font-size: 12px;
+}
+
+#wastedButton:hover {
+	color: white;
+	background-color: $wastedColor;
+	transition: 0.2s ease-in;
 }

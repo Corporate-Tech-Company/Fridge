@@ -21,8 +21,9 @@ function Fridge({
 
 	return (
 		<div>
-			{fridgeCards}
-			<button onClick={toggleAddFoodModalDisplay}>Add New Food</button>
+			<div className='centerCardsContainer'>
+				<div className='cardsContainer'>{fridgeCards}</div>
+			</div>
 		</div>
 	);
 }
