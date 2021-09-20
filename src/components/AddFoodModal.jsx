@@ -20,15 +20,23 @@ function AddFoodModal({
 	//   addNEwFood(newFood)
 	// }
 
+	const formatDate = (date) => {
+		const [year, month, day] = date.split('-');
+		return month + '/' + day + '/' + year;
+
+	}
+
 	const createNewFood = (name, quantity, price, datePurchased, useByDate) => {
 		return {
 			name: name,
 			quantity: quantity,
 			price: price,
-			datePurchased,
-			useByDate,
+			datePurchased: formatDate(datePurchased),
+			useByDate: formatDate(useByDate),
 		};
 	};
+
+
 
 	const handleFormInput = () => {
 		if (
@@ -74,14 +82,16 @@ function AddFoodModal({
 					placeholder='Price'
 					onChange={(e) => setPriceInput(e.target.value)}
 				/>
+				<label htmlFor="date-purchased">Date Purchased</label>
 				<input
-					type='text'
-					placeholder='Date Purchased'
+					type='date'
+					id="date-purchased"
 					onChange={(e) => setDatePurchasedInput(e.target.value)}
 				/>
+				<label htmlFor="use-by">Use by</label>
 				<input
-					type='text'
-					placeholder='Use By'
+					type='date'
+					id="use-by"
 					onChange={(e) => setUseByDateInput(e.target.value)}
 				/>
 				<button

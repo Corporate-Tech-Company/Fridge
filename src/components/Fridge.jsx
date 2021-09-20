@@ -7,6 +7,7 @@ function Fridge({
 	handleDeleteFridge,
 	moveToTasted,
 	moveToWasted,
+	getDifferenceInDays
 }) {
 	const fridgeCards = fridge.map((food) => {
 		return (
@@ -15,6 +16,7 @@ function Fridge({
 				handleDeleteFridge={handleDeleteFridge}
 				moveToTasted={moveToTasted}
 				moveToWasted={moveToWasted}
+				getDifferenceInDays={getDifferenceInDays}
 			/>
 		);
 	});

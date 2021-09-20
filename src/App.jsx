@@ -6,10 +6,13 @@ import Wasted from './components/Wasted.jsx';
 import Tasted from './components/Tasted.jsx';
 import { dummyData } from './dummyData';
 import AddFoodModal from './components/AddFoodModal.jsx';
+import differenceInDays from 'date-fns/differenceInDays';
 
 function App() {
 	const [user, setUser] = useState('');
-	const [fridge, setFridge] = useState([]); // returns an array [fride, setFridge] = [pieceOfState, functionForUPdatingThatPieceOfState]
+	const [fridge, setFridge] = useState([]); 
+	// firdge = [], setFridge = function -> 
+	// returns an array [fride, setFridge] = [pieceOfState, functionForUPdatingThatPieceOfState]
 	const [wasted, setWasted] = useState([]);
 	const [tasted, setTasted] = useState([]);
 	const [addFoodModalDisplay, setAddFoodModalDisplay] = useState(false);
@@ -29,78 +32,128 @@ function App() {
 			.then((res) => res.json())
 			.then(({ fridge }) => {
 				setFridge(fridge);
-			});
+			})
+			.catch((err)=>console.log('error in handleAddNewFood', err));
 	};
 
 	const handleDeleteFridge = (foodId) => {
 		const newFridge = fridge.filter((food) => food._id !== foodId);
 		// call to DB
-		/*
-		// fetch('somewhere', {
-		// 	method: 'Post',
-		// 	body: JSON.stringify({ newFridge }),
-		// 	headers: { 'Content-Type': 'application/json' },
-		// })
-		//   .then(res => res.json())
-		//   .then((res) => {
-			   	//setFridge(res);
+		
+		fetch('/api/fridge', {
+			method: 'DELETE',
+			body: JSON.stringify({ username: user, fridge: newFridge }),
+			headers: { 'Content-Type': 'application/json' },
 		})
-			  .catch((err) => console.log('error', err))
-		*/
-		setFridge(newFridge);
+		.then(res => res.json())
+		.then(({fridge}) => {
+			setFridge(fridge);
+		})
+		.catch((err) => console.log('error in handleDeleteFridge', err));
 	};
 
 	const handleDeleteTasted = (foodId) => {
 		const newTasted = tasted.filter((food) => food._id !== foodId);
 		// call to DB
-		// fetch('somewhere', {
-		// 	method: 'Post',
-		// 	body: JSON.stringify({ newFridge }),
-		// 	headers: { 'Content-Type': 'application/json' },
-		// })
-		//   .then(res => res.json())
-		//   .then((res) => {
-		//setFridge(res);
-		//	})
+		fetch('/api/tasted', {
+			method: 'DELETE',
+			body: JSON.stringify({ username: user, tasted: newTasted }),
+			headers: { 'Content-Type': 'application/json' },
+		})
+		.then(res => res.json())
+		.then(({fridge}) => {
+			setFridge(fridge);
+		})
+		.catch((err) => console.log('error in handleDeleteTasted', err));
 	};
+
 	const handleDeleteWasted = (foodId) => {
 		const newWasted = wasted.filter((food) => food._id !== foodId);
 		// call to DB
-		setWasted(newWasted);
+		fetch('/api/wasted', {
+			method: 'DELETE',
+			headers: { 'Content-Type': 'application/json' },
+			body: JSON.stringify({
+				username: user,
+				wasted: newWasted
+			})
+		})
+		.then(res => res.json())
+		.then(({ wasted }) => {
+			setWasted(wasted);
+		})
+		.catch((err) => console.log('error in handleDeleteWasted', err));
 	};
 
 	const moveToWasted = (foodId) => {
 		const movedFood = fridge.filter((food) => food._id == foodId);
 
 		const newWasted = [...wasted, ...movedFood];
-		setWasted(newWasted);
 
 		const newFridge = fridge.filter((food) => food._id !== foodId);
-		setFridge(newFridge);
 		// call to db
+		fetch('/api/wasted', {
+			method: 'DELETE',
+			headers: {'Content-Type': 'application/json'},
+			body: JSON.stringify({
+				username: user,
+				wasted: newWasted, 
+				fridge: newFridge
+			})
+		})
+		.then(res => res.json())
+		.then(({ wasted, fridge }) => {
+			setWasted(wasted);
+			setFridge(fridge);
+		})
+		.catch((err) => console.log('error in moveToWasted', err));
 	};
 
 	const moveToTasted = (foodId) => {
 		const movedFood = fridge.filter((food) => food._id == foodId);
-
 		const newTasted = [...tasted, ...movedFood];
-		setTasted(newTasted);
-
 		const newFridge = fridge.filter((food) => food._id !== foodId);
-		setFridge(newFridge);
 
-		//call to db
+		fetch('/api/tasted', {
+			method: 'PUT',
+			headers: {
+				'Content-Type': 'application/json',
+			},
+			body: JSON.stringify({
+				username: user,
+				fridge: newFridge,
+				tasted: newTasted
+			}),
+		})
+			.then((res) => res.json())
+			.then(({ fridge, tasted }) => {
+				setFridge(fridge);
+				setTasted(tasted);	
+			})
+			.catch((err)=>console.log('error in moveToTasted', err));
+
 	};
 
 	const moveWastedToFridge = (foodId) => {
 		const movedFood = wasted.filter((food) => food._id == foodId);
-
 		const newWasted = wasted.filter((food) => food._id != foodId);
-		setWasted(newWasted);
-
 		const newFridge = [...fridge, ...movedFood];
-		setFridge(newFridge);
 
+		fetch('/api/fridge', {
+			method: 'PUT',
+			headers: {'Content-Type': 'application/json'},
+			body: JSON.stringify({
+				username: user,
+				wasted: newWasted, 
+				fridge: newFridge
+			})
+		})
+		.then(res => res.json())
+		.then(({ wasted, fridge }) => {
+			setWasted(wasted);
+			setFridge(fridge);
+		})
+		.catch((err) => console.log('error in moveWastedToFridge', err));
 		// call to db
 	};
 
@@ -111,9 +164,23 @@ function App() {
 
 		const newFridge = [...fridge, ...movedFood];
 
-		setTasted(newTasted);
-		setFridge(newFridge);
-
+		fetch('/api/fridge', {
+			method: 'PUT',
+			headers: {
+				'Content-Type': 'application/json',
+			},
+			body: JSON.stringify({
+				username: user,
+				fridge: newFridge,
+				tasted: newTasted
+			}),
+		})
+			.then((res) => res.json())
+			.then(({ fridge, tasted }) => {
+				setFridge(fridge);
+				setTasted(tasted);	
+			})
+			.catch((err)=>console.log('error in moveTastedToFridge', err));
 		// call to db
 	};
 
@@ -148,9 +215,8 @@ function App() {
 
 	//function to calculate percentage wasted
 	const calcPercentageWasted = (wasted, tasted, fridge) => {
-		return (
-			(wasted.length / (wasted.length + tasted.length + fridge.length)) * 100
-		);
+		let result = wasted.length / (wasted.length + tasted.length + fridge.length);
+		return result.toFixed(2);
 	};
 
 	//componenDidMount
@@ -158,6 +224,20 @@ function App() {
 	//componenetDidUpdate
 	// run this function every time there's an update to the component
 	//componentWillUnmount
+
+	const getDifferenceInDays = (useBy) => {
+		const [useByMonth, useByDay, useByYear] = useBy.split('/');
+
+		const zeroIndexUseByMonth = parseInt(useByMonth) - 1;
+
+		const useByDate = new Date(useByYear, zeroIndexUseByMonth, useByDay);
+
+		const today = new Date();
+
+		const difference = differenceInDays(useByDate, today);
+		return difference;
+		
+	}
 
 	useEffect(() => {
 		// fetch('/wasted')
@@ -215,6 +295,7 @@ function App() {
 						handleDeleteFridge={handleDeleteFridge}
 						moveToTasted={moveToTasted}
 						moveToWasted={moveToWasted}
+						getDifferenceInDays={getDifferenceInDays}
 					/>
 				</Route>
 				<Route exact path='/wasted'>
@@ -223,6 +304,7 @@ function App() {
 						wasted={wasted}
 						moveWastedToFridge={moveWastedToFridge}
 						handleDeleteWasted={handleDeleteWasted}
+						getDifferenceInDays={getDifferenceInDays}
 					/>
 				</Route>
 				<Route exact path='/tasted'>
@@ -230,7 +312,8 @@ function App() {
 					<Tasted
 						tasted={tasted}
 						moveTastedToFridge={moveTastedToFridge}
-						handleDeleteTasted={handleDeleteTasted}
+						handleDeleteTasted={handleDeleteTasted}						
+						getDifferenceInDays={getDifferenceInDays}
 					/>
 				</Route>
 			</Switch>

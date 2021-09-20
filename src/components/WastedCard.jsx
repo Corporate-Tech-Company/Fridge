@@ -1,7 +1,10 @@
 import React from 'react';
 import './fridgeCard.scss';
 
-function WastedCard({ food, moveWastedToFridge, handleDeleteWasted }) {
+function WastedCard({ food, moveWastedToFridge, handleDeleteWasted, getDifferenceInDays}) {
+
+	const differenceInDays = getDifferenceInDays(food.useByDate);
+
 	return (
 		<div className='fridge-card'>
 			<div>{food.name}</div>
