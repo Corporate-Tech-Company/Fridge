@@ -6,49 +6,53 @@ const tastedRouter = require('./routes/tastedRouter');
 const fridgeRouter = require('./routes/fridgeRouter');
 const userController = require('./controllers/userController');
 
+//to parse the incoming requests with JSON
 app.use(express.json());
 
+//to serve static file while in /dist
 app.use('/dist', express.static(path.join(__dirname, '../dist')));
 
+//to server html as the home page
 app.get('/', (req,res)=>{ 
   return res.status(200).sendFile(path.join(__dirname, '../dist/index.html'));
 });
 
+//render html when the website is refreshed in the wasted react route
 app.get('/wasted', (req,res)=> {
   return res.status(200).sendFile(path.join(__dirname, '../dist/index.html'));
 });
 
+//render html when the website is refreshed in the tasted react route
 app.get('/tasted', (req,res)=> {
   return res.status(200).sendFile(path.join(__dirname, '../dist/index.html'));
 });
 
+//render html when the website is refreshed in the fridge react route
 app.get('/fridge', (req,res)=> {
   return res.status(200).sendFile(path.join(__dirname, '../dist/index.html'));
 });
 
-app.get('/api', (req, res) => {
-  console.log('Hello from /api')
-  return res.status(200).send('THE BURGERS ARE READY');
-})
-
-app.get('/get',
+//initally, get users info using a query string after /user
+app.get('/user',
   userController.getItems,
   (req, res) => res.status(200).json(res.locals.users)
 );
 
-app.post('/post',
+//post to add user
+app.post('/addUser',
   userController.addUser,
   (req,res) => res.status(200).json(res.locals.users)
 );
 
+//routing to corresponding API to add/edit/delete items from array(s)
 app.use('/api/wasted', wastedRouter);
-
 app.use('/api/tasted', tastedRouter);
-
 app.use('/api/fridge', fridgeRouter);
 
+//send all other end point to 404 not found
 app.use('*', (req, res) => res.sendStatus(404));
 
+//global error handler
 app.use((err, req, res, next)=>{
   const defaultErr = 
   {

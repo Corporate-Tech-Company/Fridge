@@ -4,12 +4,17 @@ const router = express.Router();
 
 router.post('/',
   userController.editItems,
-  (req, res) => res.status(200).json(/*whatever data the front end needs*/)
+  (req, res) => res.status(200).json(res.locals.newUserData)
+);
+
+router.put('/',
+  userController.editItems,
+  (req, res) => res.status(200).json(res.locals.newUserData)
 );
 
 router.delete('/',
-  userController.deleteItem,
-  (req, res) => res.status(200).json(/*whatever data the front end needs*/)
+  userController.editItems,
+  (req, res) => res.status(200).json(res.locals.newUserData)
 );
 
 

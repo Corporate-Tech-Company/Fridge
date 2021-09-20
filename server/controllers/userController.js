@@ -1,12 +1,10 @@
-const { WSAETIMEDOUT } = require('constants');
 const User = require('../models/userModel');
 //empty obj to store middlewares
 const userController = {};
 
 userController.getItems = (req, res, next) => {
-  console.log(req.body)
   //req.body will only have username, so just put it in as an parameter
-  User.findOne(req.body)
+  User.findOne(req.query)
     .then(users => {
       res.locals.users = users;
       next();
@@ -14,15 +12,34 @@ userController.getItems = (req, res, next) => {
     .catch(err => next(err));
 };
 
-userController.deleteItem = (req, res, next) => {
-
-}
-
+//**i think this format could be used for all of backend request to database? Discuss with team**//
 userController.editItems = (req, res, next) => {
+  //save it to an obj variable to use it as a search
+  const username = {username:req.body.username}
+  //find one and update;
+  /*assuming 
   
-  // const username = {username: req.body.username};
-  // const editItems = {}
-  // User.findOneAndUpdate(username, {$set: req.body}, {new:true})
+  ex1: to add item in fridge, or delete item from fridge, wasted, tasted
+  req.body = {
+    username: 'username',
+    fridge/tasted/wasted: [ new edited array (added or deleted)]
+  }
+
+  ex2: to move from fridge to either wasted or tasted
+  req.body = {
+    username: 'username',
+    fridge: [newArray (deleted)],
+    tasted/wasted:[newArray (added)],
+  }
+
+  */
+  User.findOneAndUpdate(username, {$set: req.body}, {new:true})
+  .then(users => {
+    res.locals.newUserData = users;
+    console.log(users);
+    next();
+  })
+  .catch(err => next(err));
 }
 
 userController.addUser = (req, res, next) => {
