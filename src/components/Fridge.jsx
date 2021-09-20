@@ -7,7 +7,7 @@ function Fridge({
 	handleDeleteFridge,
 	moveToTasted,
 	moveToWasted,
-	getDifferenceInDays
+	getDifferenceInDays,
 }) {
 	const fridgeCards = fridge.map((food) => {
 		return (
@@ -22,9 +22,14 @@ function Fridge({
 	});
 
 	return (
-		<div>
+		<div className='main-container'>
 			<div className='centerCardsContainer'>
 				<div className='cardsContainer'>{fridgeCards}</div>
+			</div>
+			<div className='add-food-modal-button'>
+				<button className='add-food-btn' onClick={toggleAddFoodModalDisplay}>
+					+
+				</button>
 			</div>
 		</div>
 	);

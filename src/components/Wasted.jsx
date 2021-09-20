@@ -1,8 +1,12 @@
 import React from 'react';
 import WastedCard from './WastedCard.jsx';
 
-function Wasted({ wasted, moveWastedToFridge, handleDeleteWasted, getDifferenceInDays}) {
-
+function Wasted({
+	wasted,
+	moveWastedToFridge,
+	handleDeleteWasted,
+	getDifferenceInDays,
+}) {
 	const wastedCards = wasted.map((food) => {
 		return (
 			<WastedCard
@@ -13,7 +17,13 @@ function Wasted({ wasted, moveWastedToFridge, handleDeleteWasted, getDifferenceI
 			/>
 		);
 	});
-	return <div>{wastedCards}</div>;
+	return (
+		<div>
+			<div className='centerCardsContainer'>
+				<div className='cardsContainer'>{wastedCards}</div>
+			</div>
+		</div>
+	);
 }
 
 export default Wasted;

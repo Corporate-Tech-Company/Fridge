@@ -23,8 +23,7 @@ function AddFoodModal({
 	const formatDate = (date) => {
 		const [year, month, day] = date.split('-');
 		return month + '/' + day + '/' + year;
-
-	}
+	};
 
 	const createNewFood = (name, quantity, price, datePurchased, useByDate) => {
 		return {
@@ -35,8 +34,6 @@ function AddFoodModal({
 			useByDate: formatDate(useByDate),
 		};
 	};
-
-
 
 	const handleFormInput = () => {
 		if (
@@ -67,6 +64,7 @@ function AddFoodModal({
 			onClick={toggleAddFoodModalDisplay}
 		>
 			<div className='add-container' onClick={(e) => e.stopPropagation()}>
+				<h2 id='modalHeader'>Add an item to the Fridge</h2>
 				<input
 					type='text'
 					placeholder='Name'
@@ -82,27 +80,29 @@ function AddFoodModal({
 					placeholder='Price'
 					onChange={(e) => setPriceInput(e.target.value)}
 				/>
-				<label htmlFor="date-purchased">Date Purchased</label>
+				<label htmlFor='date-purchased'>Date Purchased</label>
 				<input
 					type='date'
-					id="date-purchased"
+					id='date-purchased'
 					onChange={(e) => setDatePurchasedInput(e.target.value)}
 				/>
-				<label htmlFor="use-by">Use by</label>
+				<label htmlFor='use-by'>Use by</label>
 				<input
 					type='date'
-					id="use-by"
+					id='use-by'
 					onChange={(e) => setUseByDateInput(e.target.value)}
 				/>
-				<button
-					onClick={() => {
-						handleFormInput();
-						toggleAddFoodModalDisplay();
-					}}
-				>
-					Add New Food
-				</button>
-				<button onClick={toggleAddFoodModalDisplay}>Cancel</button>
+				<div className='buttonContainer'>
+					<button
+						onClick={() => {
+							handleFormInput();
+							toggleAddFoodModalDisplay();
+						}}
+					>
+						Add New Food
+					</button>
+					{/* <button onClick={toggleAddFoodModalDisplay}>Cancel</button> */}
+				</div>
 			</div>
 		</div>
 	);
