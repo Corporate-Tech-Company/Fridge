@@ -253,7 +253,7 @@ function App() {
 		// req.query = { username: test1 }
 
 		try {
-			fetch('/user/?username=test1')
+			fetch('/user/?username=test2')
 				.then((res) => res.json())
 				.then(({ username, fridge, wasted, tasted }) => {
 					console.log('from fetch', username);
@@ -284,10 +284,11 @@ function App() {
 				<Link to='/wasted'>Wasted</Link>
 				<Link to='/tasted'>Tasted</Link>
 				<Link to='/fridge'>Fridge</Link>
+				<button onClick={toggleAddFoodModalDisplay}>Add New Food</button>
 			</div>
 			<Switch>
 				<Route exact path='/fridge'>
-					<div>fridge</div>
+					<div>Fridge</div>
 					<Fridge
 						fridge={fridge}
 						toggleAddFoodModalDisplay={toggleAddFoodModalDisplay}
