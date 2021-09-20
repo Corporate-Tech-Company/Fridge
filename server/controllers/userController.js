@@ -6,6 +6,7 @@ userController.getItems = (req, res, next) => {
 	//req.body will only have username, so just put it in as an parameter
 	User.findOne(req.query)
 		.then((users) => {
+			if(!users) return res.status(404).send('No user with this username exists.')
 			res.locals.users = users;
 			next();
 		})
@@ -35,19 +36,17 @@ userController.editItems = (req, res, next) => {
 
 	User.findOneAndUpdate(username, { $set: req.body }, { new: true })
 		.then((users) => {
+			if(!users) return res.status(404).send('No user with this username exists.')
 			res.locals.newUserData = users;
-			console.log(users);
 			next();
 		})
 		.catch((err) => next(err));
 };
 
 userController.addUser = (req, res, next) => {
-	console.log(req.body);
 	User.create(req.body)
 		.then((users) => {
 			res.locals.users = users;
-			console.log(users);
 			next();
 		})
 		.catch((err) => next(err));
