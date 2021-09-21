@@ -1,0 +1,73 @@
+$tastedColor: rgb(104, 180, 104);
+
+.modal-overlay {
+	position: fixed;
+	background-color: rgba(1, 1, 1, 0.3);
+	top: 0;
+	left: 0;
+	width: 100vw;
+	height: 100vh;
+	z-index: 2;
+}
+
+.hidden {
+	display: none;
+}
+
+.add-container {
+	font-family: Arial, Helvetica, sans-serif;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-around;
+	align-items: center;
+	padding: 40px;
+	background-color: rgba(255, 255, 255, 1);
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	/* bring your own prefixes */
+	transform: translate(-50%, -50%);
+	border-radius: 20px;
+	// border: 5px solid $tastedColor;
+}
+
+#modalHeader {
+	margin-bottom: 20px;
+	color: $tastedColor;
+}
+
+label {
+	margin-bottom: 10px;
+	margin-top: 10px;
+}
+
+.add-container input {
+	border: 1px solid rgb(227, 227, 227);
+	font-size: 15px;
+	padding: 10px;
+
+	margin-bottom: 10px;
+	width: 15em;
+}
+
+.buttonContainer {
+	display: flex;
+	flex-direction: column;
+	margin-top: 10px;
+}
+
+.buttonContainer button {
+	background-color: white;
+	border: 1px solid $tastedColor;
+	border-radius: 10px;
+	padding: 10px;
+	color: $tastedColor;
+	font-size: 15px;
+}
+
+.buttonContainer button:hover {
+	border: 1px solid white;
+	color: white;
+	background-color: $tastedColor;
+	transition: 0.2s ease-in;
+}

@@ -1,0 +1,179 @@
+$bordercolor: rgb(174, 174, 174);
+$fontcolor: rgb(58, 58, 58);
+$wastedColor: rgb(211, 138, 138);
+$tastedColor: rgb(104, 180, 104);
+$headerColor: #ffa67a;
+
+.main-conatiner {
+	height: 100%;
+}
+
+.centerCardsContainer {
+	display: flex;
+	justify-content: center;
+	height: 100%;
+	width: 80vw;
+	margin: 0 auto;
+}
+
+.cardsContainer {
+	display: grid;
+	grid-template-columns: 1fr 1fr 1fr;
+	color: $fontcolor;
+	justify-content: center;
+	grid-gap: 30px;
+	font-family: Arial, Helvetica, sans-serif;
+	height: 100%;
+}
+
+@media only screen and (max-width: 1000px) {
+	.cardsContainer {
+		grid-template-columns: 1fr 1fr;
+	}
+}
+
+@media only screen and (max-width: 750px) {
+	.cardsContainer {
+		grid-template-columns: 1fr;
+	}
+}
+
+.card {
+	display: flex;
+	flex-direction: column;
+	width: 25em;
+	background: linear-gradient(145deg, #ffffff, #e6e6e6);
+	box-shadow: 15px 15px 30px #bebebe, -15px -15px 30px #ffffff;
+	border-radius: 5px;
+	border: 1px solid rgb(227, 227, 227);
+	padding: 15px;
+}
+
+.cardHeader {
+	display: flex;
+	justify-content: space-between;
+	border-bottom: 1px solid $bordercolor;
+	// background-color: $headerColor;
+}
+
+.cardHeader h1 {
+	font-size: 1.8em;
+	margin: 10px;
+	font-style: italic;
+	color: rgb(28, 28, 28);
+}
+
+#expirationInfo {
+	font-size: 15px;
+	color: rgb(238, 89, 89);
+	font-weight: bold;
+}
+
+#deleteButton {
+	height: 30px;
+	width: 30px;
+	border: none;
+	background: none;
+}
+
+#deleteButton:after {
+	content: 'X';
+	font-size: 1.2em;
+	color: rgb(126, 126, 126);
+}
+
+#deleteButton:hover {
+	color: rgb(171, 171, 171);
+	transition: 0.1s;
+}
+
+.cardInfo {
+	display: flex;
+	width: 25rem;
+	// border: 1px solid blue;
+	justify-content: space-between;
+	margin-top: 10px;
+	margin-left: 10px;
+	font-size: 17px;
+}
+
+.underlineInfo {
+	border-bottom: 1px solid $bordercolor;
+	width: 50%;
+	text-align: center;
+	margin-right: 10px;
+}
+
+.moveToButtons {
+	margin-left: 10px;
+	margin-top: 10px;
+}
+
+#tastedButton {
+	border: 1px solid $tastedColor;
+	color: $tastedColor;
+	border-radius: 5px;
+	padding: 10px;
+	margin-right: 10px;
+	width: 180px;
+	font-size: 15px;
+}
+
+#tastedButton:hover {
+	color: white;
+	background-color: $tastedColor;
+	transition: 0.2s ease-in;
+}
+
+#wastedButton {
+	border: 1px solid $wastedColor;
+	color: $wastedColor;
+	border-radius: 5px;
+	padding: 10px;
+	font-size: 15px;
+	width: 180px;
+}
+
+#wastedButton:hover {
+	color: white;
+	background-color: $wastedColor;
+	transition: 0.2s ease-in;
+}
+
+.add-food-modal-button {
+	margin-top: 4rem;
+	position: fixed;
+	width: 3rem;
+	height: 3rem;
+	right: 10rem;
+	bottom: 10rem;
+	border: 1px solid $tastedColor;
+	color: $tastedColor;
+	font-size: 4rem;
+	z-index: 2;
+	border-radius: 50%;
+	box-shadow: 15px 15px 30px #bebebe, -15px -15px 30px #ffffff;
+	cursor: pointer;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.add-food-modal-button:hover {
+	background-color: $tastedColor;
+	transition: 0.2s ease-in;
+}
+
+.add-food-btn {
+	background: transparent;
+	border: none;
+	outline: none;
+	display: block;
+	font-size: 4rem;
+	color: $tastedColor;
+}
+
+.add-food-btn:hover {
+	transition: 0.2s ease-in;
+	color: white;
+}
